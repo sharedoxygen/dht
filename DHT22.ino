@@ -24,8 +24,8 @@ DHT dht(DHTPIN, DHTTYPE);
 
 #define webpage "/dhtsensor/"         // path to test page
 
-//#define nextReading 2700000  //45 Minutes
-#define nextReading 1800000  //30 Minute
+#define nextReading 2700000  //45 Minutes
+//#define nextReading 1800000  //30 Minute
 //#define nextReading 300000  //5 Minute
 //#define nextReading 60000   //1 Minute
 
@@ -151,7 +151,7 @@ Serial.println(server);
     client.println(tempData.length());
 
     client.print("Authorization: ");
-    client.println("Basic ZGV2ZWxvcGVyOnNlY3VyZQ==");
+    client.println("Basic aW50ZWdyYXRpb246Y2JyMTAwMHJy");
 
     client.print("Host: "); 
     client.println(server); 
