@@ -9,7 +9,7 @@
 #include <Adafruit_WINC1500SSLClient.h>
 
 
-#include "ArduinoSecret.h"
+#include "ArduinoPrivate.h"
 
 #define DHTPIN 2     // what digital pin we're connected to
 
@@ -33,12 +33,14 @@ DHT dht(DHTPIN, DHTTYPE);
 // Setup the WINC1500 connection with the pins above and the default hardware SPI.
 Adafruit_WINC1500 WiFi(WINC_CS, WINC_IRQ, WINC_RST);
 
+char basicAuthorization[] = AUTH;
 char ssid[] = SECRET_SSID;
 char pass[] = SECRET_PASS
+const int port = PORT;
 int keyIndex = 0;                             //network key Index number (needed only for WEP)
 
 int status = WL_IDLE_STATUS;
-char server[] = "10.0.0.3";                  // domain name for test page (using DNS)
+char server[] = SERVER;                  // domain name for test page (using DNS)
 
 // Initialize the Ethernet client library with the IP address and port of the server
 Adafruit_WINC1500Client client;
@@ -127,7 +129,7 @@ Serial.println(server);
 //Serial.println(tempData);
 
   // if there's a successful connection:
-  if (client.connect(server, 8000)) {
+  if (client.connect(server, port)) {
     Serial.println();
     Serial.println();
     Serial.println("Establish Connection to IoT Server ");
@@ -151,7 +153,7 @@ Serial.println(server);
     client.println(tempData.length());
 
     client.print("Authorization: ");
-    client.println("Basic aW50ZWdyYXRpb246Y2JyMTAwMHJy");
+    client.println(basicAuthorization);
 
     client.print("Host: "); 
     client.println(server); 
