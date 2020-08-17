@@ -8,7 +8,6 @@
 #include <Adafruit_WINC1500Client.h>
 #include <Adafruit_WINC1500SSLClient.h>
 
-
 #include "ArduinoPrivate.h"
 
 #define DHTPIN 2     // what digital pin we're connected to
@@ -33,10 +32,10 @@ DHT dht(DHTPIN, DHTTYPE);
 // Setup the WINC1500 connection with the pins above and the default hardware SPI.
 Adafruit_WINC1500 WiFi(WINC_CS, WINC_IRQ, WINC_RST);
 
-char basicAuthorization[] = AUTH;
-char ssid[] = SECRET_SSID;
-char pass[] = SECRET_PASS
-const int port = PORT;
+char basicAuthorization[] = API_AUTH;
+char ssid[] = NET_SSID;
+char pass[] = NET_SSID_PASS;
+const unsigned int port = SERVER_PORT;
 int keyIndex = 0;                             //network key Index number (needed only for WEP)
 
 int status = WL_IDLE_STATUS;
@@ -222,25 +221,6 @@ void getTempData() {
   httpRequest(tempData);
 
   tempData = "";
-
-  // Serial.println("{ ");
-  // Serial.println( "\"dht22\": [");
-  // Serial.println("    {");
-  // Serial.print("      \"celsius\": ");
-  // Serial.print(t);
-  // Serial.println(", ");
-  // Serial.print("      \"fahrenheit\": ");
-  // Serial.print(f);
-  // Serial.println(", ");
-  // Serial.print("      \"humidity\": ");
-  // Serial.print(h);
-  // Serial.println(", ");
-  // Serial.print("      \"heatindex\": ");
-  // Serial.println(hif); 
-  // Serial.println("      } ");
-  // Serial.println("         ]");
-  // Serial.println(" } ");
-
 
   // Take a temperature reading every 10 Minutes
   delay(nextReading);
